@@ -36,6 +36,9 @@ class Getter(object):
             logger.info(f'crawler {crawler} to get proxy')
             for proxy in crawler.crawl():
                 self.redis.add(proxy)
+                if self.is_full():
+                    logger.info(f"达到{PROXY_NUMBER_MAX}中断不获取")
+                    return
 
 
 if __name__ == '__main__':
